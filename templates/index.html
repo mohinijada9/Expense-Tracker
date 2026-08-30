@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Expense Tracker</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        .box {
+            background: white;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 10px;
+        }
+
+        input, button {
+            padding: 10px;
+            margin: 5px;
+        }
+
+        button {
+            cursor: pointer;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+            text-align: left;
+        }
+
+        .total {
+            font-size: 24px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>💰 Expense Tracker</h1>
+
+    <div class="box">
+        <h2>Add Expense</h2>
+
+        <form action="/add" method="POST">
+
+            <input
+                type="text"
+                name="category"
+                placeholder="Category"
+                required
+            >
+
+            <input
+                type="number"
+                name="amount"
+                placeholder="Amount"
+                min="1"
+                step="0.01"
+                required
+            >
+
+            <button type="submit">Add Expense</button>
+
+        </form>
+    </div>
+
+
+    <div class="box">
+        <p class="total">
+            Total Expenses: ₹{{ "%.2f"|format(total) }}
+        </p>
+    </div>
+
+
+    <div class="box">
+        <h2>Expenses</h2>
+
+        {% if expenses %}
+
+        <table>
+
+            <tr>
+                <th>Category</th>
+                <th>Amount</th>
+            </tr>
+
+            {% for expense in expenses %}
+
+            <tr>
+                <td>{{ expense["Category"] }}</td>
+                <td>₹{{ expense["Amount"] }}</td>
+            </tr>
+
+            {% endfor %}
+
+        </table>
+
+        {% else %}
+
+        <p>No expenses added yet.</p>
+
+        {% endif %}
+
+    </div>
+
+
+    <div class="box">
+
+        <h2>Category Summary</h2>
+
+        {% if categories %}
+
+            {% for category, amount in categories.items() %}
+
+                <p>
+                    <strong>{{ category }}</strong>:
+                    ₹{{ "%.2f"|format(amount) }}
+                </p>
+
+            {% endfor %}
+
+        {% else %}
+
+            <p>No category data available.</p>
+
+        {% endif %}
+
+    </div>
+
+</body>
+</html>
