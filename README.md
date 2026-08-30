@@ -1,3 +1,6 @@
+## 🚀 Live Demo
+
+[Open Expense Tracker](https://expense-tracker-j9se.onrender.com)
 # Expense Tracker
 
 A simple Python-based expense tracking application that allows users to record,
